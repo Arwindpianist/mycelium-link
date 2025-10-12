@@ -2,11 +2,26 @@
 
 import { Circle, CheckCircle2 } from "lucide-react"
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { NetworkAnimation } from "@/components/network-animation"
+import Link from "next/link"
 
 export function RoadmapSection() {
   const [expandedPhase, setExpandedPhase] = useState<number | null>(null)
+  const [fundingData, setFundingData] = useState({ totalRaised: 0, goal: 100000 })
+
+  useEffect(() => {
+    const fetchFundingData = async () => {
+      try {
+        const response = await fetch('/api/funding-data')
+        const data = await response.json()
+        setFundingData({ totalRaised: data.totalRaised || 0, goal: data.goal || 100000 })
+      } catch (error) {
+        console.error('Failed to fetch funding data:', error)
+      }
+    }
+    fetchFundingData()
+  }, [])
 
   const phases = [
     {
@@ -142,6 +157,36 @@ export function RoadmapSection() {
                     <span className="text-sm text-muted-foreground font-mono">{phase.duration}</span>
                   </div>
                   <p className="text-muted-foreground leading-relaxed mb-2">{phase.goal}</p>
+                  
+                  {/* Funding Progress Bar - only for Seed phase */}
+                  {index === 0 && (
+                    <div className="mt-4 mb-2">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                        <span>Funding Progress</span>
+                        <span className="font-semibold text-primary">
+                          {((fundingData.totalRaised / fundingData.goal) * 100).toFixed(1)}%
+                        </span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-primary to-accent rounded-full"
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${(fundingData.totalRaised / fundingData.goal) * 100}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1.5, delay: 0.5 }}
+                        />
+                      </div>
+                      <div className="flex items-center justify-between text-xs mt-2">
+                        <span className="text-muted-foreground">
+                          RM {fundingData.totalRaised.toLocaleString()} raised
+                        </span>
+                        <Link href="/funding" className="text-primary hover:underline font-medium">
+                          Contribute →
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+                  
                   <p className="text-xs text-primary/70">Click for detailed milestones →</p>
 
                   <motion.div

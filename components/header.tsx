@@ -28,6 +28,11 @@ export function Header() {
     { label: "Team", href: "#team" },
   ]
 
+  const pageLinks = [
+    { label: "Funding", href: "/funding" },
+    { label: "Glossary", href: "/glossary" },
+  ]
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href)
     if (element) {
@@ -84,6 +89,18 @@ export function Header() {
                 {link.label}
               </a>
             ))}
+            
+            {/* Page Links */}
+            {pageLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+            
             <Button
               size="sm"
               className="bg-primary hover:bg-primary/90 text-primary-foreground"
@@ -130,6 +147,21 @@ export function Header() {
                     {link.label}
                   </motion.a>
                 ))}
+                
+                {/* Page Links */}
+                {pageLinks.map((link, index) => (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: (navLinks.length + index) * 0.05 }}
+                    className="block py-2 text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </motion.a>
+                ))}
+                
                 <Button
                   size="sm"
                   className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
