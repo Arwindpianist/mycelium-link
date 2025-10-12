@@ -101,7 +101,7 @@ export function SolutionSection() {
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
               MyceliumLink introduces a distributed data layer where information is sharded, encrypted, and verified
-              across an interconnected network of nodes — similar to how blockchain ensures trust, but optimized for
+              across an interconnected network of nodes - similar to how blockchain ensures trust, but optimized for
               data instead of finance.
             </p>
           </motion.div>
@@ -162,7 +162,7 @@ export function SolutionSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              This approach guarantees that no single node ever holds complete, readable data — ensuring total privacy,
+              This approach guarantees that no single node ever holds complete, readable data - ensuring total privacy,
               redundancy, and trust.
             </motion.p>
           </div>

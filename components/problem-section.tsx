@@ -12,7 +12,7 @@ export function ProblemSection() {
     {
       title: "Centralized Power",
       description:
-        "Over 70% of the world's cloud data runs on three companies — AWS, Google Cloud, and Microsoft Azure. This creates single points of failure, monopolistic pricing, and an increasing lack of transparency.",
+        "Over 70% of the world's cloud data runs on three companies - AWS, Google Cloud, and Microsoft Azure. This creates single points of failure, monopolistic pricing, and an increasing lack of transparency.",
       details: {
         impact: "Single points of failure affect millions of businesses globally",
         statistics: [
@@ -42,7 +42,7 @@ export function ProblemSection() {
     {
       title: "Data Sovereignty & Compliance",
       description:
-        "With new regulations like PDPA (Malaysia) and GDPR (EU), organizations are forced to store data within national borders. This has made cross-border data sharing more complex — and expensive.",
+        "With new regulations like PDPA (Malaysia) and GDPR (EU), organizations are forced to store data within national borders. This has made cross-border data sharing more complex - and expensive.",
       details: {
         impact: "Compliance costs increased 300% since 2018",
         statistics: [
@@ -72,7 +72,7 @@ export function ProblemSection() {
     {
       title: "Trust Without Verification",
       description:
-        "Most cloud security today relies on trusting providers — not cryptographic verification. Enterprises are asked to believe that their data is safe, but can't independently verify integrity or tampering.",
+        "Most cloud security today relies on trusting providers - not cryptographic verification. Enterprises are asked to believe that their data is safe, but can't independently verify integrity or tampering.",
       details: {
         impact: "Data breaches cost average $4.45M per incident",
         statistics: [
@@ -138,7 +138,7 @@ export function ProblemSection() {
           >
             <p className="text-lg text-muted-foreground italic max-w-2xl mx-auto">
               The cloud worked when data was simple and centralized. But in a multi-cloud, multi-region, AI-driven world
-              — it's time for something new.
+              - it's time for something new.
             </p>
           </motion.div>
         </div>

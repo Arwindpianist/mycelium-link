@@ -1,3 +1,4 @@
+import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { ProblemSection } from "@/components/problem-section"
 import { SolutionSection } from "@/components/solution-section"
@@ -11,17 +12,32 @@ import { Footer } from "@/components/footer"
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <HeroSection />
-      <ProblemSection />
-      <SolutionSection />
-      <TechnologySection />
-      <IntegrationSection />
-      <RoadmapSection />
-      <MonetizationSection />
-      <TeamSection />
-      <CtaSection />
+    <>
+      <Header />
+      <main className="min-h-screen">
+        <HeroSection />
+        <div id="problem">
+          <ProblemSection />
+        </div>
+        <div id="solution">
+          <SolutionSection />
+        </div>
+        <div id="technology">
+          <TechnologySection />
+        </div>
+        <div id="integration">
+          <IntegrationSection />
+        </div>
+        <div id="roadmap">
+          <RoadmapSection />
+        </div>
+        <MonetizationSection />
+        <div id="team">
+          <TeamSection />
+        </div>
+        <CtaSection />
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }

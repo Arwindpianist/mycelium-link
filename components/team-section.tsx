@@ -71,7 +71,7 @@ export function TeamSection() {
 
           <div className="text-center pt-8">
             <blockquote className="text-lg text-primary italic border-l-4 border-primary pl-6 py-2 inline-block">
-              "We're building a data network that behaves like nature — self-healing, resilient, and organic."
+              "We're building a data network that behaves like nature - self-healing, resilient, and organic."
             </blockquote>
           </div>
         </div>

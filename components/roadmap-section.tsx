@@ -95,7 +95,7 @@ export function RoadmapSection() {
           >
             <h2 className="text-4xl md:text-5xl font-bold text-balance">Roadmap</h2>
             <p className="text-xl text-muted-foreground italic">
-              Every node strengthens the network — like roots forming a living system.
+              Every node strengthens the network - like roots forming a living system.
             </p>
           </motion.div>
 

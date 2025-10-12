@@ -67,7 +67,7 @@ export function IntegrationSection() {
           >
             <h2 className="text-4xl md:text-5xl font-bold text-balance">Empowering Datacenters, Not Replacing Them</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-              We're not trying to destroy the datacenter model — we're giving it a new purpose. Existing datacenters can
+              We're not trying to destroy the datacenter model - we're giving it a new purpose. Existing datacenters can
               join the MyceliumLink mesh and instantly unlock new revenue streams.
             </p>
           </motion.div>
@@ -124,7 +124,7 @@ export function IntegrationSection() {
               whileHover={{ scale: 1.02, x: 10 }}
               transition={{ duration: 0.3 }}
             >
-              "MyceliumLink doesn't compete with cloud providers — it connects them into one global data fabric."
+              "MyceliumLink doesn't compete with cloud providers - it connects them into one global data fabric."
             </motion.blockquote>
           </motion.div>
         </div>

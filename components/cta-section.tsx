@@ -14,11 +14,47 @@ import { motion } from "framer-motion"
 
 export function CtaSection() {
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 5000)
+    setLoading(true)
+    setError(null)
+
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      phone: formData.get("phone") as string,
+      type: formData.get("type") as string,
+      message: formData.get("message") as string,
+    }
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setSubmitted(true)
+        e.currentTarget.reset() // Clear form
+        setTimeout(() => setSubmitted(false), 8000)
+      } else {
+        setError(result.error || "Failed to send message. Please try again or email us at hello@myceliumlink.com")
+      }
+    } catch (err) {
+      console.error("Form submission error:", err)
+      setError("Failed to send message. Please try again.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -69,24 +105,24 @@ export function CtaSection() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="name">Full Name *</Label>
-                  <Input id="name" required placeholder="John Doe" />
+                  <Input id="name" name="name" required placeholder="John Doe" />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="email">Email Address *</Label>
-                  <Input id="email" type="email" required placeholder="john@example.com" />
+                  <Input id="email" name="email" type="email" required placeholder="john@example.com" />
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone Number *</Label>
-                  <Input id="phone" type="tel" required placeholder="+60 12-345 6789" />
+                  <Input id="phone" name="phone" type="tel" required placeholder="+60 12-345 6789" />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="type">I am a... *</Label>
-                  <Select required>
+                  <Select name="type" required>
                     <SelectTrigger id="type">
                       <SelectValue placeholder="Select type" />
                     </SelectTrigger>
@@ -102,11 +138,22 @@ export function CtaSection() {
 
               <div className="space-y-2">
                 <Label htmlFor="message">Message (Optional)</Label>
-                <Textarea id="message" placeholder="Tell us about your interest in MyceliumLink..." rows={4} />
+                <Textarea id="message" name="message" placeholder="Tell us about your interest in MyceliumLink..." rows={4} />
               </div>
 
-              <Button type="submit" size="lg" className="w-full text-lg bg-primary hover:bg-primary/90 text-primary-foreground">
-                Let's Connect <Sprout className="ml-2 w-5 h-5" />
+              {error && (
+                <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
+                  {error}
+                </div>
+              )}
+
+              <Button 
+                type="submit" 
+                size="lg" 
+                className="w-full text-lg bg-primary hover:bg-primary/90 text-primary-foreground"
+                disabled={loading}
+              >
+                {loading ? "Sending..." : "Let's Connect"} <Sprout className="ml-2 w-5 h-5" />
               </Button>
             </motion.form>
           )}
