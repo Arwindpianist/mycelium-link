@@ -24,10 +24,10 @@ export const metadata: Metadata = {
     siteName: "MyceliumLink",
     images: [
       {
-        url: "/placeholder.jpg",
+        url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "MyceliumLink - Decentralized Data Infrastructure",
+        alt: "MyceliumLink - Decentralized Data Infrastructure Platform",
       },
     ],
     locale: "en_US",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: "MyceliumLink - The Decentralized Data Layer",
     description:
       "Connecting datacenters, enterprises, and individuals into one intelligent, secure, and autonomous data mesh.",
-    images: ["/placeholder.jpg"],
+    images: ["/api/og"],
   },
   metadataBase: new URL("https://myceliumlink.com"),
 }
