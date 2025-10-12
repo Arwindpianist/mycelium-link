@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
+import Link from "next/link"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -49,26 +50,24 @@ export function Header() {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <motion.a
-            href="#"
-            className="flex items-center gap-2 text-xl md:text-2xl font-bold"
-            whileHover={{ scale: 1.05 }}
-            onClick={(e) => {
-              e.preventDefault()
-              window.scrollTo({ top: 0, behavior: "smooth" })
-            }}
-          >
-            <Image
-              src="/favicon.svg"
-              alt="MyceliumLink"
-              width={32}
-              height={32}
-              className="w-7 h-7 md:w-8 md:h-8"
-            />
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              MyceliumLink
-            </span>
-          </motion.a>
+          <Link href="/" className="flex items-center gap-2 text-xl md:text-2xl font-bold">
+            <motion.div
+              className="flex items-center gap-2"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Image
+                src="/favicon.svg"
+                alt="MyceliumLink"
+                width={32}
+                height={32}
+                className="w-7 h-7 md:w-8 md:h-8"
+              />
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                MyceliumLink
+              </span>
+            </motion.div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
