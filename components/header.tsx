@@ -31,6 +31,7 @@ export function Header() {
   const pageLinks = [
     { label: "Funding", href: "/funding" },
     { label: "Glossary", href: "/glossary" },
+    { label: "Whitepaper", href: "/whitepaper" },
   ]
 
   const scrollToSection = (href: string) => {
