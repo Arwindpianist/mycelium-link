@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter, usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
@@ -10,14 +11,9 @@ import Link from "next/link"
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  const router = useRouter()
+  const pathname = usePathname()
+  const isHomePage = pathname === "/"
 
   const navLinks = [
     { label: "Problem", href: "#problem" },
@@ -34,17 +30,52 @@ export function Header() {
     { label: "Whitepaper", href: "/whitepaper" },
   ]
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-      setIsMobileMenuOpen(false)
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  // Handle scrolling to section when landing on homepage with hash
+  useEffect(() => {
+    if (isHomePage && window.location.hash) {
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        const element = document.querySelector(window.location.hash)
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" })
+        }
+      }, 100)
+    }
+  }, [isHomePage])
+
+  const handleNavClick = (href: string) => {
+    setIsMobileMenuOpen(false)
+    
+    if (isHomePage) {
+      // If on homepage, scroll to section
+      const element = document.querySelector(href)
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" })
+      }
+    } else {
+      // If on another page, navigate to homepage with anchor
+      router.push(`/${href}`)
     }
   }
 
-  const scrollToContact = () => {
-    document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" })
+  const handleContactClick = () => {
     setIsMobileMenuOpen(false)
+    
+    if (isHomePage) {
+      // If on homepage, scroll to contact form
+      document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" })
+    } else {
+      // If on another page, navigate to homepage contact section
+      router.push("/#contact-form")
+    }
   }
 
   return (
@@ -78,34 +109,30 @@ export function Header() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault()
-                  scrollToSection(link.href)
-                }}
+                onClick={() => handleNavClick(link.href)}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {link.label}
-              </a>
+              </button>
             ))}
             
             {/* Page Links */}
             {pageLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             
             <Button
               size="sm"
               className="bg-primary hover:bg-primary/90 text-primary-foreground"
-              onClick={scrollToContact}
+              onClick={handleContactClick}
             >
               Contact
             </Button>
@@ -133,40 +160,40 @@ export function Header() {
             >
               <div className="py-4 space-y-3 border-t border-border">
                 {navLinks.map((link, index) => (
-                  <motion.a
+                  <motion.button
                     key={link.href}
-                    href={link.href}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      scrollToSection(link.href)
-                    }}
-                    className="block py-2 text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                    onClick={() => handleNavClick(link.href)}
+                    className="block w-full text-left py-2 text-base font-medium text-muted-foreground hover:text-primary transition-colors"
                   >
                     {link.label}
-                  </motion.a>
+                  </motion.button>
                 ))}
                 
                 {/* Page Links */}
                 {pageLinks.map((link, index) => (
-                  <motion.a
+                  <motion.div
                     key={link.href}
-                    href={link.href}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: (navLinks.length + index) * 0.05 }}
-                    className="block py-2 text-base font-medium text-muted-foreground hover:text-primary transition-colors"
                   >
-                    {link.label}
-                  </motion.a>
+                    <Link
+                      href={link.href}
+                      className="block py-2 text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
                 ))}
                 
                 <Button
                   size="sm"
                   className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
-                  onClick={scrollToContact}
+                  onClick={handleContactClick}
                 >
                   Contact
                 </Button>

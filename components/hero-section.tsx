@@ -2,8 +2,9 @@
 
 import { Button } from "@/components/ui/button"
 import { NetworkAnimation } from "@/components/network-animation"
-import { ArrowDown, Sparkles, Download, ChevronRight } from "lucide-react"
+import { ArrowDown, Sparkles, FileText, ChevronRight } from "lucide-react"
 import { motion } from "framer-motion"
+import Link from "next/link"
 
 export function HeroSection() {
   const scrollToForm = () => {
@@ -129,14 +130,16 @@ export function HeroSection() {
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-lg px-8 py-7 border-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 bg-card/50 backdrop-blur-sm transition-all group"
-              >
-                <Download className="mr-2 w-5 h-5 group-hover:animate-bounce" />
-                Download Pitch Deck
-              </Button>
+              <Link href="/whitepaper">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 py-7 border-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 bg-card/50 backdrop-blur-sm transition-all group"
+                >
+                  <FileText className="mr-2 w-5 h-5 group-hover:animate-bounce" />
+                  View Whitepaper
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
 
